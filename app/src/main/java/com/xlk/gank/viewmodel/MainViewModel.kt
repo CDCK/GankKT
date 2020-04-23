@@ -19,6 +19,7 @@ import retrofit2.Response
 class MainViewModel(context: Context) {
     /** **** **  data  ** **** **/
     val content = ObservableField<String>("")
+    val imageUrl = ObservableField<String>("")
 
     /** **** **  binding  ** **** **/
 
@@ -53,16 +54,21 @@ class MainViewModel(context: Context) {
             .getRandomGirl()
             .enqueue(object : Callback<RandomGirl> {
                 override fun onResponse(call: Call<RandomGirl>, response: Response<RandomGirl>) {
-                    if(response.isSuccessful){
-                        val body=response.body()
+                    if (response.isSuccessful) {
+                        val body = response.body()
                         body?.let {
-                            val datas =body.data
+                            val datas = body.data
+                            val info = datas[0]
+                            imageUrl.set(info.images[0])
+                            content.set(info.images[0])
                         }
+                    } else {
+                        content.set("获取失败了")
                     }
                 }
 
                 override fun onFailure(call: Call<RandomGirl>, t: Throwable) {
-
+                    content.set("onFailure")
                 }
             })
     }

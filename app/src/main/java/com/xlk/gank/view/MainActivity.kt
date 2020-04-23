@@ -15,6 +15,6 @@ class MainActivity : AppCompatActivity() {
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = MainViewModel(this)
         mainBinding.main = mainViewModel
-        mainViewModel.initial()
+        mainViewModel.random()
     }
 }
