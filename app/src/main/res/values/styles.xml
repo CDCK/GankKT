@@ -8,6 +8,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--启用内容过度动画-->
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
 </resources>

@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+#保持源码的行号、源文件信息不被混淆 方便在崩溃日志中查看
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+#请避免混淆Bugly，在Proguard混淆文件中增加以下配置：
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

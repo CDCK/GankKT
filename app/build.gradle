@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'bugly'
+
+bugly {
+    // 注册时分配的App ID
+    appId = 'd4fc104cf9'
+    // 注册时分配的App Key
+    appKey = 'f430bcd6-a3f0-4870-ad39-162b3b40e1d9'
+}
 android {
     compileSdkVersion 28
 
@@ -23,9 +31,11 @@ android {
         }
     }
     dataBinding {
-        enabled  = true
+        enabled = true
     }
-
+    bugly {
+        debug = true
+    }
 }
 
 dependencies {
@@ -48,5 +58,15 @@ dependencies {
     implementation 'me.jessyan:autosize:1.2.1'
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    //权限申请
+    implementation 'com.hjq:xxpermissions:6.2'
+    //腾讯bugly
+    implementation 'com.tencent.bugly:crashreport:3.1.0'
+//    implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+
 }

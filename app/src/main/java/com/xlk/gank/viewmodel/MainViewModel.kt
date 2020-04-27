@@ -2,10 +2,16 @@ package com.xlk.gank.viewmodel
 
 import android.content.Context
 import android.util.Log
+import android.util.Log.d
+import android.util.Log.e
 import android.view.View
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
+import com.bumptech.glide.Glide
 import com.xlk.gank.model.data.GirlInfo
 import com.xlk.gank.model.data.RandomGirl
+import com.xlk.gank.util.ImageHelper
 import com.xlk.kotlingank.http.GankApi
 import com.xlk.kotlingank.http.RetrofitManager
 import retrofit2.Call
@@ -18,6 +24,8 @@ import retrofit2.Response
  */
 class MainViewModel(context: Context) {
     /** **** **  data  ** **** **/
+    val day = ObservableField<String>("")
+    val date = ObservableField<String>("")
     val content = ObservableField<String>("")
     val imageUrl = ObservableField<String>("")
 
@@ -58,9 +66,19 @@ class MainViewModel(context: Context) {
                         val body = response.body()
                         body?.let {
                             val datas = body.data
-                            val info = datas[0]
-                            imageUrl.set(info.images[0])
-                            content.set(info.images[0])
+                            if (datas.isNotEmpty()) {
+                                val info = datas[0]
+                                val year = info.createdAt.substring(0, 4)
+                                val month = info.createdAt.substring(5, 7)
+                                val d = info.createdAt.substring(8, 10)
+                                content.set(info.desc)
+                                day.set(d)
+                                date.set(month.plus("月，").plus(year))
+                                imageUrl.set(info.images[0])
+                                d("cdck", "设置更新数据 $year ，$month ， $d 日期： ${info.createdAt}")
+                            } else {
+                                d("cdck", "datas数据为空")
+                            }
                         }
                     } else {
                         content.set("获取失败了")
@@ -68,7 +86,8 @@ class MainViewModel(context: Context) {
                 }
 
                 override fun onFailure(call: Call<RandomGirl>, t: Throwable) {
-                    content.set("onFailure")
+                    content.set("onFailure ${t.message} ---和--- ${t.localizedMessage}")
+                    e("cdck", "onFailure ${t.message} ---和--- ${t.localizedMessage}")
                 }
             })
     }

@@ -62,7 +62,7 @@ interface GankApi {
     fun getGirlInfo(@Path("page") page: Int, @Path("count") count: Int): Call<GirlInfo>
 
     /**
-     * https://gank.io/api/v2/random/category/GanHuo/type/Android/count/10
+     * https://gank.io/api/v2/random/category/Girl/type/Girl/count/1
      * category 可接受参数 Article | GanHuo | Girl
      * type 可接受参数 Android | iOS | Flutter | Girl，即分类API返回的类型数据
      * count: [1, 50]
